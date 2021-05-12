@@ -1,36 +1,26 @@
 <?php
 
-namespace App;
-
-use PDO;
-use PDOException;
-
-class Database
-
-{
+class Database {
 
     public $mysql;
 
-    public function __construct()
-    {
+    public function __construct() {
         try {
             $this->mysql = $this->getConnection();
+            echo "Conectada !";
            
         } catch (PDOException $ex) {
-            echo $ex->getMessage();
+            echo "Oops ! Could'nt load your data" . $ex->getMessage();
+            die();
         }
     }
 
-    private function getConnection()
-    {
+    private function getConnection() {
 
-        $host = "localhost";
+        $link = "mysql:host=localhost;dbname=active_recall";
         $user = "root";
         $pass = "";
-        $database = "active_recall";
-        $charset = "utf-8";
-        $options = [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC];
-        $pdo = new PDO("mysql:host={$host};dbname={$database};charset{$charset}", $user, $pass, $options);
+        $pdo = new PDO($link, $user, $pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;

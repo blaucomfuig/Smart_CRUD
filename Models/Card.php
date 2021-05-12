@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Models;
-
-
-use App\Database;
+include "Database.php";
 
 class Card {
-        private string $word;
-        private string $meaning;
-        private bool $isStudied = false;
-        public $database;
-        private $table = "french_vocabulary";
+        public int $id;
+        public string $word;
+        public string $meaning;
+        public int $isStudied;
+        public static $database;
+        private static $table = "french_vocabulary";
 
-        public function __construct(string $word, string $meaning, bool $isStudied = false)
+        public function __construct(int $id = null, string $word, string $meaning, int $isStudied = 0)
         {
+            $this -> id = $id;
             $this -> word = $word;
             $this -> meaning = $meaning;
             $this -> isStudied = $isStudied;
 
-            if (!$this->database) {
-                $this->database = new Database();
-            }
+
        
         }
         
@@ -48,19 +45,20 @@ class Card {
 
         public static function all()
         {
-        $database = new Database();
-        $query = $database->mysql->query("select * FROM french_vocabulary");
-        $wordsArray = $query->fetchAll();
-        $wordsList = [];
-        foreach ($wordsArray as $word) {
-            $wordItem = new self($word["word"], $word["id"], $word["meaning"], $word["status"]);
-            array_push($wordsArray, $wordItem);
-        }
-
-        return $wordsList;
-        }
+            $database = new Database();
+            $query = $database->mysql->query("SELECT * FROM french_vocabulary");
+            $wordsArray = $query->fetchAll();
+            $wordsList = [];
+            foreach ($wordsArray as $word) {
+                $wordItem = new self($word["id"], $word["word"], $word["meaning"], $word["status"]);
+                array_push($wordsList, $wordItem);
+               
+            }
+            return $wordsList;
+        } 
     }
 
-$hola = new Card("sèmer", "sembrar");
-echo $hola -> all();
- 
+    $test = Card::all(); 
+    print_r($test);
+
+   
