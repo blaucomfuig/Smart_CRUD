@@ -3,14 +3,14 @@
 include "Database.php";
 
 class Card {
-        public int $id;
+        public ?int $id;
         public string $word;
         public string $meaning;
-        public int $isStudied;
-        public static $database;
-        private static $table = "french_vocabulary";
+        public ?int $isStudied;
+        private $database;
+        private $table = "french_vocabulary";
 
-        public function __construct(int $id = null, string $word, string $meaning, int $isStudied = 0)
+        public function __construct(int $id = null, string $word = "", string $meaning = "", int $isStudied = null)
         {
             $this -> id = $id;
             $this -> word = $word;
@@ -43,22 +43,25 @@ class Card {
         $this->database->mysql->query("INSERT INTO `{$this->table}` (`word`) VALUES ('$this->word');");
         }
 
-        public static function all()
+        public function all()
         {
             $database = new Database();
             $query = $database->mysql->query("SELECT * FROM french_vocabulary");
             $wordsArray = $query->fetchAll();
             $wordsList = [];
             foreach ($wordsArray as $word) {
-                $wordItem = new self($word["id"], $word["word"], $word["meaning"], $word["status"]);
+                $wordItem = new Card($word["id"], $word["word"], $word["meaning"], $word["status"]);
                 array_push($wordsList, $wordItem);
                
             }
             return $wordsList;
         } 
+
+        public function randomWord()
+        {
+            $this-> all();
+        } 
     }
 
-    $test = Card::all(); 
-    print_r($test);
-
+   
    

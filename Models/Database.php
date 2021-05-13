@@ -7,7 +7,7 @@ class Database {
     public function __construct() {
         try {
             $this->mysql = $this->getConnection();
-            echo "Conectada !";
+        
            
         } catch (PDOException $ex) {
             echo "Oops ! Could'nt load your data" . $ex->getMessage();
