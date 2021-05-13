@@ -13,6 +13,10 @@ class CardController
             $this->create();
             return;
         }
+        if (isset($_GET["action"]) && ($_GET["action"] == "store")) {
+            $this->store($_POST);
+            return;
+        }
         if (isset($_GET["action"]) && ($_GET["action"] == "random")) {
             $this->random();
             return;
@@ -37,6 +41,14 @@ class CardController
         ]);
     }
 
+    public function store(array $request): void
+    {
+     
+        $newWord = new Card($request["word"], $request["meaning"]);
+        $newWord -> save();
+        
+        $this->index();
+    }
     public function random(): void
     {
         $card = new Card();
@@ -47,13 +59,5 @@ class CardController
         ]);
     }
 
-    public function store(array $request): void
-    {
-
-        $newStudent = new Card($request["name"]);
-        $newStudent->save();
-
-        $this->index();
-    }
 
 }

@@ -3,9 +3,9 @@
 <body class="container-fluid vh-100 d-flex flex-column justify-content-center">
     
     <div class="col-12 d-flex justify-content-center mb-4 pt-2">
-        <form class="d-flex" method="post" action="">
-            <input type="text" class="form-control me-2" name="word-input" placeholder="Enter a new word">
-            <input type="text" class="form-control ms-2" name="meaning-input" placeholder="and it's meaning">
+        <form class="d-flex" method="post" action="?action=store">
+            <input type="text" class="form-control me-2" name="word" placeholder="Enter a new word">
+            <input type="text" class="form-control ms-2" name="meaning" placeholder="and it's meaning">
             <button class="btn btn-success ms-4">Add</button>
         </form>
     </div>

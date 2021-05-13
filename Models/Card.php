@@ -10,17 +10,21 @@ class Card {
         private $database;
         private $table = "french_vocabulary";
 
-        public function __construct(int $id = null, string $word = "", string $meaning = "", int $isStudied = null)
+        public function __construct(string $word = "", string $meaning = "", int $id = null, int $isStudied = null)
         {
-            $this -> id = $id;
+            
             $this -> word = $word;
             $this -> meaning = $meaning;
+            $this -> id = $id;
             $this -> isStudied = $isStudied;
 
-
+            if (!$this->database) {
+            $this->database = new Database();
+        }
        
         }
-        
+
+
         public function getWord()
         {
             return $this ->word;
@@ -40,7 +44,7 @@ class Card {
 
         public function save(): void 
         {
-        $this->database->mysql->query("INSERT INTO `{$this->table}` (`word`) VALUES ('$this->word');");
+        $this->database->mysql->query("INSERT INTO `{$this->table}` (`word`, `meaning`) VALUES ('$this->word', '$this->meaning');");
         }
 
         public function all()
@@ -50,7 +54,7 @@ class Card {
             $wordsArray = $query->fetchAll();
             $wordsList = [];
             foreach ($wordsArray as $word) {
-                $wordItem = new Card($word["id"], $word["word"], $word["meaning"], $word["status"]);
+                $wordItem = new Card($word["word"], $word["meaning"], $word["id"], $word["status"]);
                 array_push($wordsList, $wordItem);
                
             }
