@@ -59,9 +59,14 @@ class Card {
 
         public function randomWord()
         {
-            $this-> all();
+
+            $database = new Database();
+            $query = $database->mysql->query("SELECT * FROM french_vocabulary");
+            $wordsArray = $query->fetchAll();
+            $randomWord = $wordsArray[array_rand($wordsArray)];
+            
+            return $randomWord;
         } 
     }
 
-   
-   
+ 

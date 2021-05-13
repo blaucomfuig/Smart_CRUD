@@ -13,6 +13,10 @@ class CardController
             $this->create();
             return;
         }
+        if (isset($_GET["action"]) && ($_GET["action"] == "random")) {
+            $this->random();
+            return;
+        }
 
         $this->index();
     }
@@ -30,6 +34,16 @@ class CardController
 
         new View("CardList", [
             "allCards" => $cards,
+        ]);
+    }
+
+    public function random(): void
+    {
+        $card = new Card();
+        $randomCard = $card -> randomWord();
+
+        new View("RandomWord", [
+           "randomcard" => $randomCard,
         ]);
     }
 
