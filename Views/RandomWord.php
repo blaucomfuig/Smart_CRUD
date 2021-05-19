@@ -28,11 +28,9 @@
     <?php
         echo 
         "
-        <div class='card text-dark bg-light m-2'>
-        <div class='card-header text-center'>{$data['randomcard']['word']}</div>
-        <div class='card-body text-center'>
-        <p class='card-text'>{$data['randomcard']['meaning']}</p>
-        </div>
+        <div class='card text-dark bg-light m-2 d-flex justify-content-center align-items-center' style='width: 10rem; height: 10rem; filter: drop-shadow(1px 5px 10px gray)';>
+            <div class='text-center' style='font-size: 1.8rem;'>{$data['randomcard']['word']}</div>
+
         </div>
 
         ";
