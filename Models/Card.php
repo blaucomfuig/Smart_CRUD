@@ -8,7 +8,7 @@ class Card {
         public string $meaning;
         public ?int $isStudied;
         private $database;
-        private $table = "french_vocabulary";
+        public $table = "french_vocabulary";
 
         public function __construct(string $word = "", string $meaning = "", int $id = null, int $isStudied = null)
         {
@@ -36,6 +36,10 @@ class Card {
             return $this -> meaning;
         }
 
+        public function getId()
+        {
+            return $this -> id;
+        }
 
         public function getIsStudied()
         {
@@ -71,6 +75,22 @@ class Card {
             
             return $randomWord;
         } 
+
+        function findById($id){
+            $query = $this ->database -> mysql -> query("SELECT * FROM {$this->table} WHERE `id` = {$id}");
+            $result = $query -> fetchAll();
+            $word = new Card($result[0]['word'],$result[0]['meaning'], $result[0]['id'], $result[0]['status']);
+
+            return $word;
+        }
+
+        function delete(){
+            $this -> database -> mysql -> query("DELETE FROM {$this -> table} WHERE {$this -> table}.`id` = {$this-> id}");
+        }
+
+       
     }
 
+    
+    
  

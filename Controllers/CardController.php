@@ -21,6 +21,10 @@ class CardController
             $this->random();
             return;
         }
+        if (isset($_GET["action"]) && ($_GET["action"] == "delete")){
+            $this->delete($_GET['id']);
+            return;
+        }
 
         $this->index();
     }
@@ -57,6 +61,14 @@ class CardController
         new View("RandomWord", [
            "randomcard" => $randomCard,
         ]);
+    }
+
+    public function delete($id){
+        $card = new Card();
+        $cardToDelete = $card -> findById($id);
+        $cardToDelete -> delete();
+
+        $this -> create();
     }
 
 
