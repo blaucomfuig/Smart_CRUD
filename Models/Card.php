@@ -46,6 +46,14 @@ class Card {
             return $this ->isStudied;
         }
 
+        public function updateWord($word){
+            $this -> word = $word;
+        }
+
+        public function updateMeaning($meaning){
+            $this -> meaning = $meaning;
+        }
+
         public function save(): void 
         {
         $this->database->mysql->query("INSERT INTO `{$this->table}` (`word`, `meaning`) VALUES ('$this->word', '$this->meaning');");
@@ -86,6 +94,11 @@ class Card {
 
         function delete(){
             $this -> database -> mysql -> query("DELETE FROM {$this -> table} WHERE {$this -> table}.`id` = {$this-> id}");
+        }
+
+        function update(){
+            $this -> database -> mysql -> query("UPDATE {$this -> table} SET `word` = '{$this-> word}' WHERE `id` = {$this-> id}");
+            $this -> database -> mysql -> query("UPDATE {$this -> table} SET `meaning` = '{$this->meaning}' WHERE `id` = {$this-> id}");
         }
 
        

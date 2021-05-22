@@ -29,7 +29,11 @@
     }
 
 ?>
-
+<a href="?action=index">
+  <button class="btn btn-dark ">
+    Volver
+  </button>
+</a>
 
 
 <?php require_once("Components/Footer.php"); ?>
